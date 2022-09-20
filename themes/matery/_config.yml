@@ -37,9 +37,9 @@ menu:
   Navi:
     url: /tools
     icon: fas fa-suitcase
-  Windows:
-    url: /Windows
-    icon: fas fa-desktop
+#   Windows:
+#     url: /Windows
+#     icon: fas fa-desktop
   Friends:
     url: /friends
     icon: fas fa-link
