@@ -1,5 +1,5 @@
 ---
-title: Centos系统安装LAMP
+title: Centos7系统安装LAMP开发环境
 author: liuliunx
 coverImg: /medias/banner/4.jpg
 top: false
@@ -9,7 +9,7 @@ mathjax: false
 summary: >-
   LAMP是指一组通常一起使用来运行动态网站或者服务器的自由软件名称首字母缩写。L指Linux，A指Apache，M一般指MySQL，也可以指MariaDB，P一般指PHP，也可以指Perl或Python。
 tags:
-  - Centos
+  - Centos7
   - 服务器系统环境搭建教程 
   - LAMP
 categories:
@@ -20,57 +20,55 @@ date: 2020-09-17 00:00:00
 img: 
 password:
 ---
-[**如何搭建lamp(CentOS7+Apache+MySQL+PHP)环境**](https://www.cnblogs.com/apro-abra/p/4862285.html)
 
-一.安装CentOS7
+## 一. 安装CentOS7
 
-二、安装Apache
+## 二、安装Apache
 
-1.安装
+### 1. 安装
+```bash
+yum -y install httpd
+```
+### 2. 开启`apache`服务
+```bash
+systemctl start httpd.service
+```
+### 3. 设置`apache`服务开机启动
+```bash
+systemctl enable httpd.service
+```
+### 4. 验证`apache`服务是否安装成功
 
-**yum -y install httpd**
-
-2.开启apache服务
-
-**systemctl start httpd.service**
-
-3.设置apache服务开机启动
-
-**systemctl enable httpd.service**
-
-4.验证apache服务是否安装成功
-
-在本机浏览器中输入虚拟机的ip地址，CentOS7查看ip地址的方式为：
-
-**ip addr**
-
-（阿里云不需要用这种方式查看，外网ip已经在你主机列表那里给你写出来了的；）
+在本机浏览器中输入虚拟机的`ip`地址，`CentOS7`查看`ip`地址的方式为：
+```bash
+ip addr
+```
+（阿里云不需要用这种方式查看，外网`ip`已经在你主机列表那里给你写出来了的；）
 
 这里是访问不成功的
 
 （阿里云用外网访问，能成功，不需要做以下步骤）
 
-查了资料，说法是，CentOS7用的是Firewall-cmd，CentOS7之前用的是iptables防火墙；要想让外网能访问到apache主目录，就需要做以下的操作：
+查了资料，说法是，`CentOS7`用的是`Firewall-cmd`，`CentOS7`之前用的是`iptables`防火墙；要想让外网能访问到`apache`主目录，就需要做以下的操作：
+```bash
+firewall-cmd \--permanent \--zone=public \--add-service=http
 
-**firewall-cmd \--permanent \--zone=public \--add-service=http**
+firewall-cmd \--permanent \--zone=public \--add-service=https
 
-**firewall-cmd \--permanent \--zone=public \--add-service=https**
+firewall-cmd \--reload
+```
+然后再访问外网`ip`，如果看到apache默认的页面`\--有Testing123\...`字样，便是成功安装了`apache`服务了；
 
-**firewall-cmd \--reload**
+## 三、 安装PHP
 
-然后再访问外网ip，如果看到apache默认的页面\--有Testing
-123\...字样，便是成功安装了apache服务了；
-
-三、安装PHP
-
-1.安装
-
-**yum -y install php**
-
-2.重启apache服务
-
-**systemctl restart httpd或者systemctl restart httpd.service**
-
+### 1.安装
+```bash
+yum -y install php
+```
+### 2. 重启apache服务
+```bash
+systemctl restart httpd或者systemctl restart httpd.service
+```
 然后，你可以写一个php文件在浏览器中运行一下了;
 
 **eg:**
